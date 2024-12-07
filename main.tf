@@ -169,3 +169,58 @@ resource "aws_dynamodb_table" "iac_table" {
     project = var.project
   }
 }
+
+# # Extra # #
+
+#Crating OIDC provider for github actions
+
+resource "aws_iam_openid_connect_provider" "default" {
+  url = "https://token.actions.githubusercontent.com"
+
+  #Audience
+  client_id_list = [
+    "sts.amazonaws.com"
+  ]
+
+  thumbprint_list = ["D89E3BD43D5D909B47A18977AA9D5CE36CEE184C"]
+
+  tags = {
+    project = var.project 
+  }
+}
+
+#Trsut policy for the role for the IdP (identity provider)
+data "aws_iam_policy_document" "assume_role_policy" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Federated"
+      identifiers = [aws_iam_openid_connect_provider.default.arn]
+    }
+
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:sub"
+
+      values = ["repo:thecodemango/cloud-resume-iac:ref:refs/heads/master"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:aud"
+
+      values = ["sts.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "github_role" {
+  name               = "GitHubAction-AssumeRoleWithAction"
+  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
+}
+
+#At the time of this project there is not a direct way to attach the role to the IdP using terraform. 
+#I will manually attach the role to the IdP using the console and move forward with the configuration using terraform.
