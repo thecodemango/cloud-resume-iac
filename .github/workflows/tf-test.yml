@@ -11,16 +11,27 @@ env:
 permissions:
   id-token: write   # This is required for requesting the JWT
   contents: read    # This is required for actions/checkout
-  
+
 jobs:
     TerraformInstallAndAuth:
         runs-on: ubuntu-latest
+
         steps:
           - name: Git clone the repository
             uses: actions/checkout@v3
-          - name: configure aws credentials
+
+          - name: Setup Terraform
+            uses: hashicorp/setup-terraform@v1
+
+          - name: Terrafrom fmt and validate
+            run: terraform fmt && terraform validate
+
+          - name: Configure AWS credentials
             uses: aws-actions/configure-aws-credentials@v1.7.0
             with:
-                role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubAction-AssumeRoleWithAction #change to reflect your IAM role’s ARN
+                role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubAction-AssumeRoleWithAction #Change to reflect your IAM role’s ARN
                 role-session-name: GitHub_to_AWS_via_FederatedOIDC
                 aws-region: ${{ env.AWS_REGION }}
+
+          - name: Terraform Plan
+            run: terraform plan

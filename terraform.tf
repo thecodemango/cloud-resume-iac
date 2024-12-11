@@ -18,6 +18,6 @@ terraform {
     key            = "v1/terraform.tfstate"
     region         = "ca-central-1"
     dynamodb_table = "state-locking"
-    encrypt = true
+    encrypt        = true
   }
 }
