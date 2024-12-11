@@ -222,5 +222,6 @@ resource "aws_iam_role" "github_role" {
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 }
 
-#At the time of this project there is not a direct way to attach the role to the IdP using terraform. 
-#I will manually attach the role to the IdP using the console and move forward with the configuration using terraform.
+output "TEST" {
+  value = aws_s3_bucket.bucket_test.arn
+}
