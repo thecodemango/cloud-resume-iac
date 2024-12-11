@@ -23,8 +23,8 @@ jobs:
           - name: Setup Terraform
             uses: hashicorp/setup-terraform@v1
 
-          - name: Terrafrom fmt and validate
-            run: terraform fmt && terraform validate
+          - name: Terrafrom fmt init and validate 
+            run: terraform fmt && terraform init && terraform validate
 
           - name: Configure AWS credentials
             uses: aws-actions/configure-aws-credentials@v1.7.0
