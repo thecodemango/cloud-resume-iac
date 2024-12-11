@@ -23,15 +23,15 @@ jobs:
           - name: Setup Terraform
             uses: hashicorp/setup-terraform@v1
 
-          - name: Terrafrom fmt init and validate 
-            run: terraform fmt && terraform init && terraform validate
-
           - name: Configure AWS credentials
             uses: aws-actions/configure-aws-credentials@v1.7.0
             with:
                 role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubAction-AssumeRoleWithAction #Change to reflect your IAM role’s ARN
                 role-session-name: GitHub_to_AWS_via_FederatedOIDC
                 aws-region: ${{ env.AWS_REGION }}
+
+          - name: Terrafrom fmt init and validate 
+            run: terraform fmt && terraform init && terraform validate
 
           - name: Terraform Plan
             run: terraform plan
