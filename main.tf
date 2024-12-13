@@ -239,14 +239,26 @@ data "aws_iam_policy_document" "github_perm_policy_doc" {
     actions   = ["s3:GetObject", "s3:PutObject"]
     resources = ["${data.aws_s3_bucket.state_bucket.arn}/v1/terraform.tfstate"]
   }
-
+  
   statement {
     effect = "Allow"
     actions = ["dynamodb:DescribeTable", "dynamodb:GetItem",
-    "dynamodb:PutItem", "dynamodb:DeleteItem"]
+    "dynamodb:PutItem", "dynamodb:DeleteItem", "dynamodb:DescribeContinuousBackups" ]
     resources = [data.aws_dynamodb_table.state-locking.arn]
   }
 
+  statement {
+    effect    = "Allow"
+    actions   = ["dynamodb:DescribeTable", "dynamodb:GetItem",
+    "dynamodb:PutItem"]
+    resources = [ aws_dynamodb_table.iac_table.arn ]
+  }
+
+  statement {
+    effect    = "Allow"
+    actions   = ["iam:GetRole"]
+    resources = [ "*" ]
+  }
 }
 
 #Creating permissions policy
