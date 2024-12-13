@@ -242,22 +242,21 @@ data "aws_iam_policy_document" "github_perm_policy_doc" {
   
   statement {
     effect = "Allow"
-    actions = ["dynamodb:DescribeTable", "dynamodb:GetItem",
-    "dynamodb:PutItem", "dynamodb:DeleteItem", "dynamodb:DescribeContinuousBackups" ]
+    actions = ["dynamodb:*"]
     resources = [data.aws_dynamodb_table.state-locking.arn]
   }
-
+  ##############################################################
   statement {
     effect    = "Allow"
-    actions   = ["dynamodb:DescribeTable", "dynamodb:GetItem",
-    "dynamodb:PutItem"]
-    resources = [ aws_dynamodb_table.iac_table.arn ]
-  }
-
-  statement {
-    effect    = "Allow"
-    actions   = ["iam:GetRole"]
+    actions   = ["*"]
     resources = [ "*" ]
+
+    condition {
+      test     = "StringEquals"
+      variable = "aws:ResourceTag/project"
+
+      values = ["${var.project}"]
+    }
   }
 }
 
