@@ -173,7 +173,6 @@ resource "aws_dynamodb_table" "iac_table" {
 # # Extra # #
 
 #Crating OIDC provider for github actions
-
 resource "aws_iam_openid_connect_provider" "default" {
   url = "https://token.actions.githubusercontent.com"
 
@@ -217,9 +216,50 @@ data "aws_iam_policy_document" "assume_role_policy" {
   }
 }
 
+#Fetching data about state-locking table
+data "aws_dynamodb_table" "state-locking" {
+  name = "state-locking"
+}
+
+#Defining permission policy for role for github actions
+data "aws_iam_policy_document" "github_perm_policy_doc" {
+  statement {
+    effect    = "Allow"
+    actions   = ["s3:ListBucket"]
+    resources = [aws_s3_bucket.bucket_test.arn]
+  }
+
+  statement {
+    effect    = "Allow"
+    actions   = ["s3:GetObject", "s3:PutObject"]
+    resources = ["${aws_s3_bucket.bucket_test.arn}/v1/terraform.tfstate"]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = ["dynamodb:DescribeTable", "dynamodb:GetItem",
+    "dynamodb:PutItem", "dynamodb:DeleteItem"]
+    resources = [data.aws_dynamodb_table.state-locking.arn]
+  }
+
+}
+
+#Creating permissions policy
+resource "aws_iam_policy" "github_perm_policy" {
+  name        = "github_perm_policy"
+  description = "Policy for github actions to acces terraform rsources (s3, dynamodb)"
+  policy      = data.aws_iam_policy_document.github_perm_policy_doc.json
+}
+
+#Attaching trust policy to role for github Actions
 resource "aws_iam_role" "github_role" {
   name               = "GitHubAction-AssumeRoleWithAction"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "github_perm_policy_attach" {
+  role       = aws_iam_role.github_role.name
+  policy_arn = aws_iam_policy.github_perm_policy.arn
 }
 
 output "TEST" {
