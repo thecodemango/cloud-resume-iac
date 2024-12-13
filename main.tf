@@ -227,7 +227,7 @@ data "aws_s3_bucket" "state_bucket" {
 }
 
 #Defining permission policy for role for github actions
-data "aws_iam_policy_document" "github_perm_policy_doc" {
+/**data "aws_iam_policy_document" "github_perm_policy_doc" {
   statement {
     effect    = "Allow"
     actions   = ["s3:ListBucket"]
@@ -258,7 +258,18 @@ data "aws_iam_policy_document" "github_perm_policy_doc" {
       values = ["${var.project}"]
     }
   }
+}**/
+
+# # #
+
+data "aws_iam_policy_document" "github_perm_policy_doc" {
+  statement {
+    effect    = "Allow"
+    actions   = ["*"]
+    resources = ["*"]
+  }
 }
+# # #
 
 #Creating permissions policy
 resource "aws_iam_policy" "github_perm_policy" {
