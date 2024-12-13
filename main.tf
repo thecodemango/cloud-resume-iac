@@ -221,6 +221,11 @@ data "aws_dynamodb_table" "state-locking" {
   name = "state-locking"
 }
 
+#Fetching dta about state S3 bucket
+data "aws_s3_bucket" "state_bucket" {
+  bucket = "cloud-resume-tf-state-bucket"
+}
+
 #Defining permission policy for role for github actions
 data "aws_iam_policy_document" "github_perm_policy_doc" {
   statement {
@@ -232,7 +237,7 @@ data "aws_iam_policy_document" "github_perm_policy_doc" {
   statement {
     effect    = "Allow"
     actions   = ["s3:GetObject", "s3:PutObject"]
-    resources = ["${aws_s3_bucket.bucket_test.arn}/v1/terraform.tfstate"]
+    resources = ["${data.aws_s3_bucket.state_bucket.arn}/v1/terraform.tfstate"]
   }
 
   statement {
