@@ -74,7 +74,7 @@ data "aws_iam_policy_document" "github_perm_policy_doc" {
   ##############################################################
   statement {
     effect    = "Allow"
-    actions   = ["lambda:*, cloudfront:*", "cloudwatch:*", "apigateway:*","acm:*"]
+    actions   = ["lambda:*", "cloudfront:*", "cloudwatch:*", "apigateway:*","acm:*"]
     resources = [ "*" ]
 
     condition {
