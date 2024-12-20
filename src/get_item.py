@@ -8,7 +8,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 dynamodb = boto3.resource('dynamodb', region_name='ca-central-1')
-#Change the table name so its not hardcoded
+
 table = dynamodb.Table('iac-counter')
 
 def lambda_handler(event, context):
@@ -23,6 +23,5 @@ def lambda_handler(event, context):
     
     return {
         'statusCode': 200,
-        #'body': json.dumps(str(response))
         'body': item
     }
