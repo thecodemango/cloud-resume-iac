@@ -18,5 +18,5 @@ if [ "$new_file_checksum" != "$current_file_checksum" ]; then
     # Move to where the test file is
     cd src
     # Run test. Redirect output as its not nedeed at this point.
-    python3 -m unittest test_put_item.py > /dev/null 2>&1
+    python -m unittest test_put_item.py > /dev/null 2>&1
 fi

@@ -4,9 +4,6 @@ on:
     push:
         branches: [ master ]
 
-env:
-    status : null
-
 permissions:
     id-token: write   # This is required for requesting the JWT
     contents: read    # This is required for actions/checkout
@@ -21,10 +18,5 @@ jobs:
             
             - name: Compare new and old lambda functions and run test
               run: |
-                pwd
-                ls -la
-               
-               # ./scripts/script_test.sh put_item.py
-               
-               # $status=$?
-               #  echo Here is the exit code $status
+                ./scripts/script_test.sh put_item.py
+                echo Here is the exit code $?
