@@ -15,10 +15,8 @@ current_file_checksum=$(cat checksums/put_item.txt)
 if [ "$new_file_checksum" != "$current_file_checksum" ]; then
     # Update file containing current file checksum
     echo $new_file_checksum > checksums/put_item.txt
-    # Move to where the test file is
-    ls
+    # Move to where the test file is. TODO read about how modules work in python
     cd src
-    ls
     # Run test. Redirect output as its not nedeed at this point.
     python -m unittest test_put_item.py > /dev/null 2>&1
 fi
