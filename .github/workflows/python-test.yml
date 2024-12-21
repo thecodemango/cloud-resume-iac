@@ -19,5 +19,12 @@ jobs:
             - name: Git clone the repository
               uses: actions/checkout@v3
             
-            - name: check if python installed
-              run: python --version
+            - name: Compare new and old lambda functions and run test
+              run: |
+                pwd
+                ls -la
+               
+               # ./scripts/script_test.sh put_item.py
+               
+               # $status=$?
+               #  echo Here is the exit code $status
