@@ -19,4 +19,12 @@ jobs:
             - name: Compare new and old lambda functions and run test
               run: |
                 ./scripts/script_test.sh src/put_item.py
-                echo Here is the exit code $?
+
+            - name: Check if test fails
+              if: ${{ failure() }}
+              run: echo Failed test. Job ended.
+            
+            - name: If test passes
+              run: echo Passed test. Good job.
+            
+            
