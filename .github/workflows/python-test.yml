@@ -4,6 +4,9 @@ on:
     push:
         branches: [ master ]
 
+env:
+  AWS_REGION : ca-central-1
+
 permissions:
     id-token: write   # This is required for requesting the JWT
     contents: read    # This is required for actions/checkout
@@ -22,9 +25,20 @@ jobs:
 
             - name: Check if test fails
               if: ${{ failure() }}
-              run: echo Failed test. Job ended.
+              run: echo Failed test. Check your function code.
             
-            - name: If test passes
-              run: echo Passed test. Good job.
+            - name: Setup Terraform
+              uses: hashicorp/setup-terraform@v1
+  
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v1.7.0
+              with:
+                  role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubAction-AssumeRoleWithAction #Change to reflect your IAM role’s ARN
+                  role-session-name: GitHub_to_AWS_via_FederatedOIDC
+                  aws-region: ${{ env.AWS_REGION }}
             
-            
+            - name: Initialize Terraform
+              run: terraform fmt && terraform init && terraform validate
+      
+            - name: Terraform Plan
+              run: terraform plan

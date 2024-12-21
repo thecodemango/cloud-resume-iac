@@ -17,6 +17,6 @@ if [ "$new_file_checksum" != "$current_file_checksum" ]; then
     echo $new_file_checksum > checksums/put_item.txt
     # Move to where the test file is. TODO read about how modules work in python
     cd src
-    # Run test. Redirect output as its not nedeed at this point.
+    # Run test. Redirect output as its not nedeed at this point for testing the script excecution.
     python -m unittest test_put_item.py > /dev/null 2>&1
 fi
