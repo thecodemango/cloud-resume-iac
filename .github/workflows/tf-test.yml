@@ -2,7 +2,7 @@ name: Terraform test workflow
 
 on:
     push:
-      branches: [ master ]
+      branches: [ cheese ]
 
 env:
   

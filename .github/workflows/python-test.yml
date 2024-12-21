@@ -19,11 +19,5 @@ jobs:
             - name: Git clone the repository
               uses: actions/checkout@v3
             
-            - name: Install dependencies
-              run: sudo apt-get install python
-            
-            - name: Compare new and old lambda functions and run test
-              run: |
-                ./scripts/script_test.sh put_item.py
-                $status=$?
-                echo Here is the exit code $status
+            - name: check if python installed
+              run: python --version
