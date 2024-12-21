@@ -1,0 +1,29 @@
+name: Terraform test workflow
+
+on:
+    push:
+        branches: [ master ]
+
+env:
+    status : null
+
+permissions:
+    id-token: write   # This is required for requesting the JWT
+    contents: read    # This is required for actions/checkout
+
+jobs:
+    PythonTest:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Git clone the repository
+              uses: actions/checkout@v3
+            
+            - name: Compare new and old lambda functions and run test
+              run: |
+                ./scripts/script_test.sh
+                $status=$?
+                echo $status
+
+            - name: Setup Terraform
+              uses: hashicorp/setup-terraform@v1

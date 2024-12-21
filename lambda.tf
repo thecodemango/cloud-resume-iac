@@ -75,6 +75,9 @@ resource "aws_lambda_function" "lambda_put" {
   filename      = data.archive_file.lambda_put.output_path
   function_name = "iac_put_count_item"
   role          = aws_iam_role.role_for_lambda_put.arn
+
+  source_code_hash = data.archive_file.lambda_put.output_base64sha256
+
   runtime       = "python3.11"
   handler       = "put_item.lambda_handler"
   tags = {
@@ -147,6 +150,9 @@ resource "aws_lambda_function" "lambda_get" {
   filename      = data.archive_file.lambda_get.output_path
   function_name = "iac_get_count_item"
   role          = aws_iam_role.role_for_lambda_get.arn
+
+  source_code_hash = data.archive_file.lambda_get.output_base64sha256
+  
   runtime       = "python3.11"
   handler       = "get_item.lambda_handler"
   tags = {
