@@ -19,12 +19,11 @@ jobs:
             - name: Git clone the repository
               uses: actions/checkout@v3
             
+            - name: Install dependencies
+              run: sudo apt-get install python
+            
             - name: Compare new and old lambda functions and run test
               run: |
-                echo $github.action_path && echo $github.path
-                ./scripts/script_test.sh src/put_item.py
+                ./scripts/script_test.sh put_item.py
                 $status=$?
-                echo $status
-
-            - name: Setup Terraform
-              uses: hashicorp/setup-terraform@v1
+                echo Here is the exit code $status
