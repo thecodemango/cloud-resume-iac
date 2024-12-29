@@ -4,8 +4,6 @@ import logging
 
 #Configure logging
 
-#Comment 3 to change checksum 
-
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
