@@ -28,20 +28,18 @@ jobs:
                 cache-name: cache-aws-cli
               with:
                 path: '~/.local/bin'
-                key: ${{ runner.os }}-python-${{ env.cache-name }} #Not using a has because I'm not using a requriments.txt file
+                key: ${{ runner.os }}-python-${{ env.cache-name }} #Not using a hash because I'm not using a requriments.txt file
             
             - if: ${{ steps.cache-aws-cli.outputs.cache-hit != 'true' }}
-              name: List the state of node modules
+              name: Install AWS CLI
               run: pip3 install awscli --upgrade --user
             
             - name: Configure AWS credentials
-              uses: aws-actions/configure-aws-credentials@v1.7.0
+              uses: aws-actions/configure-aws-credentials@v4.0.2
               with:
                   role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubAction-AssumeRoleWithAction 
                   role-session-name: GitHub_to_AWS_via_FederatedOIDC
                   aws-region: ${{ env.AWS_REGION }}
             
             - name: Test cli connection
-              run: aws sts get-caller-identity
-
-           # s3 cp cv_IaC_v1 s3://thecodemango-cv/upload_test --recursive --exclude ".*" #TODO find a way to just upload changed file
+              run: aws s3 cp cv_IaC_v1 s3://thecodemango-cv/upload_test --recursive --exclude ".*" #TODO find a way to just upload changed file
