@@ -16,8 +16,8 @@ def lambda_handler(event, context):
 
     n = event['pathParameters']['n']
 
-    #if int(n) < 0:
-    #    raise ValueError("The value of the counter must be a positive int. Check pathParameters value")
+    if int(n) < 0:
+        raise ValueError("The value of the counter must be a positive int. Check pathParameters value")
 
     table.update_item(
         Key={
@@ -34,5 +34,3 @@ def lambda_handler(event, context):
     return {
         'statusCode': 200
     }
-
-#Comment to test again
