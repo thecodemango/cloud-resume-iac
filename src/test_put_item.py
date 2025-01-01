@@ -4,7 +4,7 @@ from put_item import lambda_handler
 #Negative value
 event1 = {
     "pathParameters":{
-      "n":"-1"
+      "n":"-5"
    }
 }
 
