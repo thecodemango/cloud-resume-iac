@@ -21,11 +21,12 @@ jobs:
             - name: Git clone the repository
               uses: actions/checkout@v3
             
-            - name: Compare new and old lambda functions and run test
+            - name: Run test
               run: |
-                ./scripts/script_test.sh src/put_item.py
+                cd src
+                python -m unittest test_put_item.py
 
-            - name: Check if test fails
+            - name: End job if test fails
               if: ${{ failure() }}
               run: echo Failed test. Check your function code.
             
