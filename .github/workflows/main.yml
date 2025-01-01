@@ -28,9 +28,11 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       # Hello from AWS: WhoAmI
       - name: Sts GetCallerIdentity
-        env:
-          GITHUB_CONTEXT: ${{github.event.commits.modified}}
         run: |
           aws sts get-caller-identity
-          echo $GITHUB_CONTEXT
+          
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
       
