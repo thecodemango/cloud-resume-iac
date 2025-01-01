@@ -31,10 +31,10 @@ jobs:
               run: echo Failed test. Check your function code.
             
             - name: Setup Terraform
-              uses: hashicorp/setup-terraform@v1
+              uses: hashicorp/setup-terraform@v3.1.2
   
             - name: Configure AWS credentials
-              uses: aws-actions/configure-aws-credentials@v1.7.0
+              uses: aws-actions/configure-aws-credentials@v4.0.2
               with:
                   role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubAction-AssumeRoleWithAction #Change to reflect your IAM role’s ARN
                   role-session-name: GitHub_to_AWS_via_FederatedOIDC
