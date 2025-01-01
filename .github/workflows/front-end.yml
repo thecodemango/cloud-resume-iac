@@ -19,7 +19,7 @@ jobs:
 
         steps:
             - name: Git clone the repository
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
             
             - name: Install AWS CLI
               run: pip3 install awscli
@@ -32,4 +32,4 @@ jobs:
                   aws-region: ${{ env.AWS_REGION }}
             
             - name: Upload files to S3
-              run: aws s3 cp cv_IaC_v1 s3://thecodemango-cv/upload_test --recursive --exclude ".*" #TODO find a way to just upload changed file
+              run: aws s3 cp cv_IaC_v1 s3://iac-bucket-test-v1 --recursive --exclude ".*" #TODO Find a way to just upload changed file

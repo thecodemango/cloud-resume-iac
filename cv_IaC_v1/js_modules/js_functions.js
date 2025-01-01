@@ -40,5 +40,3 @@ async function put_count(n) {
     }
 
     export {get_count, put_count}
-
-    //Random comment
