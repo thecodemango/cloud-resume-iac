@@ -142,7 +142,7 @@ data "aws_route53_zone" "selected" {
 #Creating an A (Alias) record for the CloudFront distribution
 resource "aws_route53_record" "iac_a_record" {
   zone_id = data.aws_route53_zone.selected.zone_id
-  name    = "iac"
+  name    = "cv"
   type    = "A"
 
   alias {
