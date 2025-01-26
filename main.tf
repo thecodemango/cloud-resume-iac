@@ -120,7 +120,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   #Custom domain name
-  aliases = ["iac.thecodemango.com"]
+  aliases = ["cv.thecodemango.com"]
 
   is_ipv6_enabled = false
 
