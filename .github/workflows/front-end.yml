@@ -32,4 +32,4 @@ jobs:
                   aws-region: ${{ env.AWS_REGION }}
             
             - name: Upload files to S3
-              run: aws s3 cp cv_IaC_v1 s3://iac-bucket-test-v1 --recursive --exclude ".*" #TODO Find a way to just upload changed file
+              run: aws s3 cp cv_IaC_v1 s3://iac-bucket-test-v1 --recursive --exclude ".*"

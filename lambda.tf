@@ -94,11 +94,11 @@ resource "aws_cloudwatch_log_group" "lambda_put_log" {
   }
 }
 
-#Configuration for the lambda put_item function
+#Configuration for the lambda get_item function
 
 /** The configuration that follows is basically the same as the configuration for the put_item function but with
 values modified to match the get_item function configuration including a different permission policy, different
-python file and a different log group for CloudWatch **/
+python file and a different log group on CloudWatch **/
 
 resource "aws_iam_role" "role_for_lambda_get" {
   name               = "iac_get_count_item_role"

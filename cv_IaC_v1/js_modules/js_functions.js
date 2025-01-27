@@ -1,4 +1,4 @@
-//Code snippet taken from https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+//Based on the code example given at https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 
 //get
 async function get_count() {
@@ -9,13 +9,10 @@ async function get_count() {
             throw new Error(`Not ok. Response status: ${response.status}`);
         }
 
-        //TODO understand better how this works
         const json = await response.json();
-        //console.log(json);
         return json;
 
         } catch (error) {
-        //console.error(error.message);
         return error.message;
         }
     }

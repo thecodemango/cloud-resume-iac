@@ -4,18 +4,17 @@ let uuid = localStorage.getItem('mango_cv_user_id');
 
 if(uuid === null) {
 
-  let new_id = self.crypto.randomUUID(); //TODO search what this line of code means
+  let new_id = self.crypto.randomUUID();
   localStorage.setItem('mango_cv_user_id', new_id);
 
-  //TODO change variable aws name to a more appropiate one
-  let aws = await get_count();
-  aws = Number(aws)+1;
-  document.getElementById('aws').innerHTML = aws;
-  put_count(aws.toString());
+  let counter = await get_count();
+  counter = Number(counter)+1;
+  document.getElementById('counter').innerHTML = counter;
+  put_count(counter.toString());
 
 } else {
 
-  let aws = await get_count();
-  document.getElementById('aws').innerHTML = aws;
+  let counter = await get_count();
+  document.getElementById('counter').innerHTML = counter;
 
 }

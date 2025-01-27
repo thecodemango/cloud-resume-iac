@@ -16,9 +16,8 @@ event2 = {
 }
 class TestPutItem(unittest.TestCase):
     def test_values(self):
+        #A value of 0 is placed as second argument in place for the context paramter used by the lambda functions
         #Test for negative value input
-        #A value of 0 is placed as second argument
-        #In place for the context paramter used by the lambda function
         self.assertRaises(ValueError, lambda_handler, event1,0)
         #Test for decimal value input
         self.assertRaises(ValueError, lambda_handler, event2,0)
