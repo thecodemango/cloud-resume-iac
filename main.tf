@@ -46,24 +46,6 @@ resource "aws_s3_bucket_policy" "allow_access_to_objects" {
   policy = data.aws_iam_policy_document.allow_objects_access.json
 }
 
-/*
-This method doesnt doesn't set metadata like content-type, and this metadata is important for things like HTTP access from the browser working correctly.
-I'm aware of a module that helps with this matter (https://registry.terraform.io/modules/hashicorp/dir/template/latest) 
-
-For the sake of simplicity, I decided to manually upload the files using the AWS console.
-
-#Objects upload
-resource "aws_s3_object" "upload" {
-    bucket = aws_s3_bucket.bucket_test.id
-    for_each = fileset("./cv_IaC_v1","**")
-    key = "${each.key}"
-    content_type = each.value == "index.html" ? "text/html" : null
-    source = "./cv_IaC_v1/${each.value}"
-    #https://www.reddit.com/r/Terraform/comments/x1m49t/help_understating_etag_option_from_aws_s3_object/
-    etag = filemd5("./cv_IaC_v1/${each.value}")
-}
-*/
-
 #CloudFront
 
 #Creating CloudFront origin access control
@@ -97,12 +79,12 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = aws_s3_bucket.bucket_test.id
-    #This line is important because of my JavaScript code
+    #This line is important for my JavaScript code
     #For details see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-viewers-to-cloudfront.html
     viewer_protocol_policy = "redirect-to-https"
 
     #Using an aws managed cache policy
-    #For more info read https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cache-key-understand-cache-policy.html
+    #For details see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cache-key-understand-cache-policy.html
     cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
   }
 

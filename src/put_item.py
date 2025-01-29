@@ -23,7 +23,7 @@ def lambda_handler(event, context):
         Key={
             'countID': 0
             },
-            #To workaorund the fact that counter is a reserved word in DynamoDB
+            #Workaround. Counter is a reserved word in DynamoDB
             ExpressionAttributeNames={"#c":"counter"},
             UpdateExpression='SET #c = :val1',
             ExpressionAttributeValues={
