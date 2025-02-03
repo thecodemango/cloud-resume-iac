@@ -42,13 +42,6 @@ data "aws_iam_policy_document" "assume_role_policy" {
   }
 }
 
-#Creating permissions policy
-resource "aws_iam_policy" "github_perm_policy" {
-  name        = "github_perm_policy"
-  description = "Policy for GitHub Actions to acces terraform rsources (s3, dynamodb)"
-  policy      = data.aws_iam_policy_document.github_perm_policy_doc.json
-}
-
 #Attaching trust policy to role for GitHub Actions
 resource "aws_iam_role" "github_role" {
   name               = "GitHubAction-AssumeRoleWithAction"
