@@ -2,7 +2,7 @@ import json
 import boto3
 import logging
 
-#Configure logging
+#Logging configuration
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -23,7 +23,7 @@ def lambda_handler(event, context):
         Key={
             'countID': 0
             },
-            #Workaround. counter is a reserved word in DynamoDB
+            #Workaround counter is a reserved word in DynamoDB
             ExpressionAttributeNames={"#c":"counter"},
             UpdateExpression='SET #c = :val1',
             ExpressionAttributeValues={
