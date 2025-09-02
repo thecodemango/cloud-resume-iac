@@ -17,7 +17,7 @@ terraform {
     bucket         = "cloud-resume-tf-state-bucket"
     key            = "v1/terraform.tfstate"
     region         = "ca-central-1"
-    dynamodb_table = "state-locking"
+    use_lockfile   = true
     encrypt        = true
   }
 }
