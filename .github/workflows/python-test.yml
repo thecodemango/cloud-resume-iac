@@ -37,7 +37,7 @@ jobs:
         runs-on: ubuntu-latest
         defaults:
           run:
-            working-directory: ./terraform
+            working-directory: terraform
 
         steps:
             - name: Setup Terraform

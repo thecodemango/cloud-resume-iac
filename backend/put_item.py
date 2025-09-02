@@ -3,6 +3,7 @@ import boto3
 import logging
 
 #Logging configuration
+#test commment
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
