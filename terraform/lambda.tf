@@ -66,7 +66,7 @@ resource "aws_iam_role_policy_attachment" "put_attach" {
 #Packaging the python code for the function
 data "archive_file" "lambda_put" {
   type        = "zip"
-  source_file = "${path.module}/src/put_item.py"
+  source_file = "../backend/put_item.py"
   output_path = "lambda_put.zip"
 }
 
@@ -142,7 +142,7 @@ resource "aws_iam_role_policy_attachment" "get_attach" {
 
 data "archive_file" "lambda_get" {
   type        = "zip"
-  source_file = "${path.module}/src/get_item.py"
+  source_file = "../backend/get_item.py"
   output_path = "lambda_get.zip"
 }
 
