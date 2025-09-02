@@ -45,8 +45,8 @@ jobs:
             
             - name: Initialize Terraform
               run: |
-                cd /terraform
                 ls -la
+                cd terraform
                 terraform init
               
             - name: Terraform Plan
