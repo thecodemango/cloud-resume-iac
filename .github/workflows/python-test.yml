@@ -24,6 +24,10 @@ jobs:
             - name: Git clone the repository
               uses: actions/checkout@v4
             
+            - name: Initialize Terraform
+              run: |
+                ls -la
+            
             - name: Run test
               run: |
                 cd backend
