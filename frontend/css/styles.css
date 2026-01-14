@@ -1,29 +1,52 @@
 body {
-  background-color: #ffffff;
-  color: #4e89ae;
-  font-family: Arial, Helvetica, sans-serif;
-}
+    background-color: #ccc;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    display: inline;
+    justify-content: center;
+    padding-top: 2rem;
+  }
 
-hr {
-  background-color: #ffffff;
-  border-style: line none none none;
-  border-width: 1px;
-  border-color: #000000;
-  width: 70%;
-}
+  .pdf-page {
+    background-color: white;
+    width: 8.5in; /* US Letter width */
+    min-height: 11in; /* US Letter height */
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    padding: 0.4in;
+    box-sizing: border-box;
+    /*margin-bottom: 2rem;*/
+    margin: 20px auto;
+  }
 
-h1 {
-  color: #43658b;
-  font-family: Arial, Helvetica, sans-serif;
-}
+  h1, h2, h3 {
+    margin: 0;
+    font-weight: bold;
+  }
 
-h2 {
-  color: #43658b;
-  font-family: Arial, Helvetica, sans-serif;
-}
+  h1 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
 
-/*Classes*/
+  h2 {
+    font-size: 20px;
+    border-bottom: 1px solid #333;
+    margin-top: 1.5rem;
+    padding-bottom: 0.2rem;
+  }
 
-.circular {
-  border-radius: 100%;
-}
+  p {
+    margin: 0.1rem 0;
+    line-height: 1.4;
+  }
+
+  .section {
+    margin-top: 1rem;
+
+  }
+
+  /* Simulated page break (if you have multiple pages) */
+  .pdf-page + .pdf-page {
+    page-break-before: always;
+  }
